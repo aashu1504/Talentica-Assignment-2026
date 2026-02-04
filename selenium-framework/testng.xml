@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium Automation Test Suite" parallel="methods" thread-count="1">
+    <listeners>
+        <listener class-name="com.qa.automation.listeners.TestStatusListener"/>
+    </listeners>
+    
+           <test name="Home Page Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.homepage.TC001_HomePageTest"/>
+               </classes>
+           </test>
+           
+           <test name="Signup Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.signup.TC002_PatientSignupTest"/>
+                   <class name="com.qa.automation.tests.signup.TC003_DoctorSignupTest"/>
+               </classes>
+           </test>
+           
+           <test name="Login Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.login.TC004_PatientLoginTest"/>
+                   <class name="com.qa.automation.tests.login.TC005_DoctorLoginTest"/>
+               </classes>
+           </test>
+</suite>
+
