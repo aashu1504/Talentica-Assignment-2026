@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -187,6 +188,26 @@ public class ElementUtil {
             return isDisplayed;
         } catch (Exception e) {
             logger.warn("Element not displayed: {}. Error: {}", locator, e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Selects an option from a dropdown by visible text
+     * @param element WebElement dropdown element
+     * @param visibleText Visible text to select
+     * @return true if selection successful, false otherwise
+     */
+    public boolean doSelectByVisibleText(WebElement element, String visibleText) {
+        try {
+            logger.info("Attempting to select dropdown option by visible text: {}", visibleText);
+            WebElement visibleElement = wait.until(ExpectedConditions.visibilityOf(element));
+            Select select = new Select(visibleElement);
+            select.selectByVisibleText(visibleText);
+            logger.info("Successfully selected dropdown option: {}", visibleText);
+            return true;
+        } catch (Exception e) {
+            logger.error("Failed to select dropdown option: {}. Error: {}", visibleText, e.getMessage());
             return false;
         }
     }

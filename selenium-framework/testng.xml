@@ -18,6 +18,12 @@
                </classes>
            </test>
            
+           <test name="Search Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.search.TC007_FindDoctorsSearchTest"/>
+               </classes>
+           </test>
+           
            <test name="Login Tests">
                <classes>
                    <class name="com.qa.automation.tests.login.TC004_PatientLoginTest"/>
