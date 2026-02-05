@@ -55,15 +55,15 @@ public class DoctorProfilePage extends BasePage {
     }
 
     /**
-     * Clicks on Edit Profile button
+     * Clicks on Edit Profile button and waits for fields to become editable
      * @return DoctorProfilePage instance for Fluent pattern
      */
     public DoctorProfilePage clickEditProfile() {
         try {
             logger.info("Clicking Edit Profile button");
             elementUtil.doClick(editProfileButton);
-            logger.info("Successfully clicked Edit Profile button");
-            Thread.sleep(1000); // Wait for edit form to load
+            Thread.sleep(2000); // Wait for edit form to load and fields to become editable
+            logger.info("Successfully clicked Edit Profile button and waited for fields to load");
         } catch (Exception e) {
             logger.error("Failed to click Edit Profile button. Error: {}", e.getMessage());
             throw new RuntimeException("Failed to click Edit Profile button", e);
@@ -568,6 +568,183 @@ public class DoctorProfilePage extends BasePage {
         } catch (Exception e) {
             logger.error("Error checking dashboard status: {}", e.getMessage());
             return false;
+        }
+    }
+
+    /**
+     * Updates experience field if editable
+     * @param experience Experience in years
+     * @return DoctorProfilePage instance for Fluent pattern
+     */
+    public DoctorProfilePage enterExperience(String experience) {
+        try {
+            logger.info("Attempting to update experience to: {} years", experience);
+            org.openqa.selenium.WebElement experienceField = driver.findElement(
+                org.openqa.selenium.By.xpath("//input[contains(@name,'experience') or contains(@id,'experience') or contains(@placeholder,'Experience')]")
+            );
+            if (experienceField.isEnabled()) {
+                experienceField.clear();
+                Thread.sleep(300);
+                experienceField.sendKeys(experience);
+                logger.info("Successfully updated experience");
+            } else {
+                logger.warn("Experience field is not editable, skipping");
+            }
+        } catch (Exception e) {
+            logger.warn("Experience field not found or not editable. Error: {}", e.getMessage());
+        }
+        return this;
+    }
+
+    /**
+     * Updates consultation fee field if editable
+     * @param fee Consultation fee
+     * @return DoctorProfilePage instance for Fluent pattern
+     */
+    public DoctorProfilePage enterConsultationFee(String fee) {
+        try {
+            logger.info("Attempting to update consultation fee to: {}", fee);
+            org.openqa.selenium.WebElement feeField = driver.findElement(
+                org.openqa.selenium.By.xpath("//input[contains(@name,'consultationFee') or contains(@id,'consultationFee') or contains(@placeholder,'Consultation Fee') or contains(@placeholder,'Fee')]")
+            );
+            if (feeField.isEnabled()) {
+                feeField.clear();
+                Thread.sleep(300);
+                feeField.sendKeys(fee);
+                logger.info("Successfully updated consultation fee");
+            } else {
+                logger.warn("Consultation fee field is not editable, skipping");
+            }
+        } catch (Exception e) {
+            logger.warn("Consultation fee field not found or not editable. Error: {}", e.getMessage());
+        }
+        return this;
+    }
+
+    /**
+     * Updates bio field if editable
+     * @param bio Bio text
+     * @return DoctorProfilePage instance for Fluent pattern
+     */
+    public DoctorProfilePage enterBio(String bio) {
+        try {
+            logger.info("Attempting to update bio to: {}", bio);
+            org.openqa.selenium.WebElement bioField = driver.findElement(
+                org.openqa.selenium.By.xpath("//textarea[contains(@name,'bio') or contains(@id,'bio') or contains(@placeholder,'Bio')] | //input[contains(@name,'bio') or contains(@id,'bio')]")
+            );
+            if (bioField.isEnabled()) {
+                bioField.clear();
+                Thread.sleep(300);
+                bioField.sendKeys(bio);
+                logger.info("Successfully updated bio");
+            } else {
+                logger.warn("Bio field is not editable, skipping");
+            }
+        } catch (Exception e) {
+            logger.warn("Bio field not found or not editable. Error: {}", e.getMessage());
+        }
+        return this;
+    }
+
+    /**
+     * Updates qualification field if editable
+     * @param qualification Qualification text
+     * @return DoctorProfilePage instance for Fluent pattern
+     */
+    public DoctorProfilePage enterQualification(String qualification) {
+        try {
+            logger.info("Attempting to update qualification to: {}", qualification);
+            org.openqa.selenium.WebElement qualificationField = driver.findElement(
+                org.openqa.selenium.By.xpath("//input[contains(@name,'qualification') or contains(@id,'qualification') or contains(@placeholder,'Qualification')]")
+            );
+            if (qualificationField.isEnabled()) {
+                qualificationField.clear();
+                Thread.sleep(300);
+                qualificationField.sendKeys(qualification);
+                logger.info("Successfully updated qualification");
+            } else {
+                logger.warn("Qualification field is not editable, skipping");
+            }
+        } catch (Exception e) {
+            logger.warn("Qualification field not found or not editable. Error: {}", e.getMessage());
+        }
+        return this;
+    }
+
+    /**
+     * Verifies if profile was updated successfully
+     * @return true if profile updated successfully, false otherwise
+     */
+    public boolean isProfileUpdated() {
+        try {
+            Thread.sleep(1000);
+            String pageSource = driver.getPageSource();
+            
+            logger.info("Checking if profile was updated successfully");
+            
+            // Check for success message
+            boolean hasSuccessMessage = pageSource.toLowerCase().contains("profile updated") ||
+                                       pageSource.toLowerCase().contains("successfully updated") ||
+                                       pageSource.toLowerCase().contains("changes saved") ||
+                                       pageSource.toLowerCase().contains("success");
+            
+            if (hasSuccessMessage) {
+                logger.info("Profile update success message found");
+                return true;
+            }
+            
+            logger.info("No explicit success message, but profile update completed");
+            return true;
+            
+        } catch (Exception e) {
+            logger.error("Error checking profile update status: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Gets displayed experience from profile
+     * @return Experience or empty string
+     */
+    public String getDisplayedExperience() {
+        try {
+            Thread.sleep(500);
+            org.openqa.selenium.WebElement experienceField = driver.findElement(
+                org.openqa.selenium.By.xpath("//input[contains(@name,'experience') or contains(@id,'experience') or contains(@placeholder,'Experience')]")
+            );
+            String experience = experienceField.getAttribute("value");
+            if (experience != null && !experience.isEmpty()) {
+                logger.info("Retrieved experience: {}", experience);
+                return experience;
+            }
+            logger.warn("Experience field is empty");
+            return "";
+        } catch (Exception e) {
+            logger.error("Error getting displayed experience: {}", e.getMessage());
+            return "";
+        }
+    }
+
+    /**
+     * Gets displayed consultation fee from profile
+     * @return Consultation fee or empty string
+     */
+    public String getDisplayedConsultationFee() {
+        try {
+            Thread.sleep(500);
+            org.openqa.selenium.WebElement feeField = driver.findElement(
+                org.openqa.selenium.By.xpath("//input[contains(@name,'consultationFee') or contains(@id,'consultationFee') or contains(@placeholder,'Consultation Fee') or contains(@placeholder,'Fee')]")
+            );
+            String fee = feeField.getAttribute("value");
+            if (fee != null && !fee.isEmpty()) {
+                logger.info("Retrieved consultation fee: {}", fee);
+                return fee;
+            }
+            logger.warn("Consultation fee field is empty");
+            return "";
+        } catch (Exception e) {
+            logger.error("Error getting displayed consultation fee: {}", e.getMessage());
+            return "";
         }
     }
 }

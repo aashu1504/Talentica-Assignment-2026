@@ -1,0 +1,27 @@
+BLOOD TEST REPORT
+=================
+
+Patient Information:
+-------------------
+Patient Name: John Doe
+Patient ID: P123456
+Date: January 15, 2026
+Lab: City Medical Laboratory
+
+Test Results:
+-------------
+Hemoglobin: 14.5 g/dL (Normal Range: 13.0-17.0)
+WBC Count: 7,500 /cumm (Normal Range: 4,000-11,000)
+RBC Count: 5.2 million/cumm (Normal Range: 4.5-5.5)
+Platelets: 250,000 /cumm (Normal Range: 150,000-450,000)
+Blood Sugar (Fasting): 95 mg/dL (Normal Range: 70-100)
+Cholesterol: 180 mg/dL (Normal Range: <200)
+
+Remarks:
+--------
+All test results are within normal range.
+Patient is advised to maintain a healthy lifestyle.
+
+---
+This is a sample medical report for testing purposes only.
+Generated for Selenium test automation.

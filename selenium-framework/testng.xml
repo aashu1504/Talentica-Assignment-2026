@@ -28,6 +28,14 @@
            <test name="Profile Tests">
                <classes>
                    <class name="com.qa.automation.tests.profile.TC006_DoctorEditProfileTest"/>
+                   <class name="com.qa.automation.tests.profile.TC019_EditPatientProfileTest"/>
+                   <class name="com.qa.automation.tests.profile.TC020_EditDoctorProfessionalInfoTest"/>
+               </classes>
+           </test>
+           
+           <test name="Medical Records Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.records.TC018_UploadMedicalReportTest"/>
                </classes>
            </test>
            
