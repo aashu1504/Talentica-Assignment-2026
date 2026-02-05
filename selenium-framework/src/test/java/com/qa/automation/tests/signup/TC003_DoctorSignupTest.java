@@ -4,7 +4,6 @@ import com.qa.automation.base.BaseTest;
 import com.qa.automation.pages.HomePage;
 import com.qa.automation.pages.SignupPage;
 import com.qa.automation.utils.ExtentReportManager;
-import com.qa.automation.utils.TestDataGenerator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -47,13 +46,17 @@ public class TC003_DoctorSignupTest extends BaseTest {
     private HomePage homePage;
     private SignupPage signupPage;
     private String uniqueEmail;
+    private String uniqueLicenseNumber;
 
     @BeforeMethod
     public void setUpTest() {
         homePage = new HomePage();
         signupPage = new SignupPage();
-        // Generate unique email for each test run
-        uniqueEmail = TestDataGenerator.generateUniqueEmail("dr.jane", "test.com");
+        // Generate unique email for each test run - simple format without underscores
+        long timestamp = System.currentTimeMillis();
+        uniqueEmail = "drjane" + timestamp + "@test.com";
+        // Generate unique license number without spaces or underscores
+        uniqueLicenseNumber = "MED" + timestamp;
     }
 
     @Test(description = "TC-003: Verify Doctor Signup (End-to-End)")
@@ -119,10 +122,11 @@ public class TC003_DoctorSignupTest extends BaseTest {
             signupPage.selectSpecialty("Cardiology");
             ExtentReportManager.logPass("✓ Selected 'Cardiology' from Specialty dropdown");
 
-            // Step 6: Click "License Number" and enter "MED-2026-X"
-            ExtentReportManager.logInfo("Step 6: Click 'License Number' and enter 'MED-2026-X'");
-            signupPage.enterLicenseNumber("MED-2026-X");
-            ExtentReportManager.logPass("✓ Entered License Number: MED-2026-X");
+            // Step 6: Click "License Number" and enter unique license number
+            ExtentReportManager.logInfo("Step 6: Click 'License Number' and enter unique license number");
+            ExtentReportManager.logInfo("Generated unique license number: " + uniqueLicenseNumber);
+            signupPage.enterLicenseNumber(uniqueLicenseNumber);
+            ExtentReportManager.logPass("✓ Entered License Number: " + uniqueLicenseNumber);
 
             // Step 7: Click "Qualification" and enter "MBBS, MD"
             ExtentReportManager.logInfo("Step 7: Click 'Qualification' and enter 'MBBS, MD'");
@@ -184,7 +188,7 @@ public class TC003_DoctorSignupTest extends BaseTest {
             ExtentReportManager.logInfo("Expected Result 3: Verify system accepts all professional details");
             ExtentReportManager.logPass("✓ All professional details accepted:");
             ExtentReportManager.logPass("  - Specialty: Cardiology");
-            ExtentReportManager.logPass("  - License Number: MED-2026-X");
+            ExtentReportManager.logPass("  - License Number: " + uniqueLicenseNumber);
             ExtentReportManager.logPass("  - Qualification: MBBS, MD");
             ExtentReportManager.logPass("  - Experience: 10 years");
             ExtentReportManager.logPass("  - Consultation Fee: ₹1000");

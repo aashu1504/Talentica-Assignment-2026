@@ -47,6 +47,37 @@ public class HomePage extends BasePage {
     }
 
     /**
+     * Navigates to any URL
+     * @param url URL to navigate to
+     * @return HomePage instance for Fluent pattern
+     */
+    public HomePage navigateToUrl(String url) {
+        try {
+            logger.info("Navigating to URL: {}", url);
+            navigateTo(url);
+            logger.info("Successfully navigated to URL: {}", url);
+        } catch (Exception e) {
+            logger.error("Failed to navigate to URL: {}. Error: {}", url, e.getMessage());
+        }
+        return this;
+    }
+
+    /**
+     * Clears browser cache by deleting all cookies
+     * @return HomePage instance for Fluent pattern
+     */
+    public HomePage clearBrowserCache() {
+        try {
+            logger.info("Clearing browser cache");
+            driver.manage().deleteAllCookies();
+            logger.info("Successfully cleared browser cache");
+        } catch (Exception e) {
+            logger.error("Failed to clear browser cache. Error: {}", e.getMessage());
+        }
+        return this;
+    }
+
+    /**
      * Verifies if the logo is displayed
      * @return HomePage instance for Fluent pattern
      */

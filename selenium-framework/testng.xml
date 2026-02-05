@@ -24,5 +24,32 @@
                    <class name="com.qa.automation.tests.login.TC005_DoctorLoginTest"/>
                </classes>
            </test>
+           
+           <test name="Profile Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.profile.TC006_DoctorEditProfileTest"/>
+               </classes>
+           </test>
+           
+           <test name="Security Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.security.TC021_ChangePasswordTest"/>
+                   <class name="com.qa.automation.tests.security.TC024_PatientCannotAccessDoctorURLTest"/>
+                   <class name="com.qa.automation.tests.security.TC025_SessionTimeoutBrowserBackTest"/>
+               </classes>
+           </test>
+           
+           <test name="Logout Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.logout.TC022_PatientLogoutTest"/>
+                   <class name="com.qa.automation.tests.logout.TC023_DoctorLogoutTest"/>
+               </classes>
+           </test>
+           
+           <test name="Performance Tests">
+               <classes>
+                   <class name="com.qa.automation.tests.performance.TC026_HomePageLoadSpeedTest"/>
+               </classes>
+           </test>
 </suite>
 
